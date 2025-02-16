@@ -26,10 +26,13 @@ app.get("/contact",(req,res)=>{
     res.send("You are at contact page");
 })
 
-app.get("*",(req,res)=>{
-    res.send("Enter valid route");
-})
-
 app.post("/login",(req,res)=>{
     res.send("Login Successfully");
 });
+
+app.get("/search",(req,res)=>{
+    const {name} = req.query
+    const {age} = req.query
+    const {sex} = req.query
+    res.send(`Your name is ${name}\n Your age is ${age} \n Your gender is ${sex}`);
+})
