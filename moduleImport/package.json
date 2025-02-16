@@ -1,0 +1,11 @@
+{
+  "name": "moduleimport",
+  "version": "1.0.0",
+  "description": "Learning import",
+  "main": "Main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Faziel",
+  "license": "ISC"
+}
