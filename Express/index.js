@@ -34,5 +34,6 @@ app.get("/search",(req,res)=>{
     const {name} = req.query
     const {age} = req.query
     const {sex} = req.query
-    res.send(`Your name is ${name}\n Your age is ${age} \n Your gender is ${sex}`);
+    res.send(`<div>Your name is ${name}</div><div> Your age is ${age} </div> <div> Your gender is ${sex}</div>`);
 })
+
