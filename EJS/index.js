@@ -6,11 +6,12 @@ const port = 3000;
 app.set("view engine", 'ejs');
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/",(req,res)=>
+app.get("/ig/:username",(req,res)=>
 {
-    res.render("home.ejs",{orderId: 1234});
+    const info = require("./data.json");
+    const {username} = req.params;
+    res.render("instagram.ejs",{username,info});
 })
-
 app.listen(port,()=>
     {
         console.log(`Server is running on port ${port}`);

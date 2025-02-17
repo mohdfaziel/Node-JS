@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram</title>
+  </head>
+  <body>
+    <h1><%=info.title%> , My name is <%=username%></h1>
+    <h4><%=info.description%></h4>
+    <h5>List of Products we sell:</h5>
+    <%info.products.map((product)=>{%>
+    <ul><%=product.name%>
+        <li><%=product.price%></li>
+        <li><%=product.image%></li>
+    </ul>
+    <%})%>
+    <%-include("includes/footer.ejs")%>
+  </body>
+</html>

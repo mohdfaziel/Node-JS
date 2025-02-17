@@ -1,0 +1,25 @@
+{
+    "title": "Welcome to My Website",
+    "description": "This is a sample EJS template rendering test.",
+    "products": [
+      {
+        "id": 1,
+        "name": "Organic Honey",
+        "price": 10.99,
+        "image": "honey.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Beeswax Candle",
+        "price": 5.99,
+        "image": "candle.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Royal Jelly",
+        "price": 15.99,
+        "image": "royaljelly.jpg"
+      }
+    ]
+  }
+  
