@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1 style="text-align: center;">Instagram</h1>
+    <div class="posts">
+    <% dataBase.map((post)=>{ %>
+        <div class="post">
+            <h2 class="username">@<%= post.username %></h2>
+            <p class="content"><%= post.content %></p>
+            <a href="/posts/<%=post.id%>/edit"><button>Edit Post</button></a>
+            <a href="/posts/<%=post.id%>"><button>View Post</button></a>
+            <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+       
+        <br/>
+        <% }) %>
+    </div>
+    <a href="/posts/new"><button>Add New Post</button></a>
+</body>
+</html>
