@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+</head>
+<body>
+    <h1 style="text-align: center;">All Chats</h1>
+   <form method="GET" action="/chats/new">
+    <button type="submit" style="text-align: center; color: rgb(9, 9, 9);">New Chat</button>
+   </form>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; ">
+        <% chats.map((chat)=> { %>
+            <div style="background-color: rgb(146, 149, 149); margin: 5px; display: inline-block; padding: 5px; border-radius: 10px;">
+                <p>From : <%=chat.from %></p>
+                <p>To : <%=chat.to %></p>
+                <h3><%=chat.msg %></h3>
+                <p>Date: <%=chat.created_at.toString().split(" ").slice(0,4).join(" ") %></p>
+                <p>Time: <%=chat.created_at.toString().split(" ")[4] %></p>
+                <form method="get" action="/chats/<%=chat._id%>/edit">
+                    <button type="submit" style="text-align: center; color: rgb(9, 9, 9);">Edit Chat</button>
+                </form>
+                <form method="post" action="/chats/<%=chat._id%>?_method=DELETE">
+                    <button type="submit" style="text-align: center; color: rgb(9, 9, 9);">Delete Chat</button>
+                </form>
+            </div>
+        <% }) %>
+        </div>
+</body>
+</html>
