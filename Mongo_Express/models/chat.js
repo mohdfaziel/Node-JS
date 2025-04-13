@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const joi = require("joi");
 const chatSchema = new mongoose.Schema({
   from: {
     type: String,
@@ -20,6 +21,19 @@ const chatSchema = new mongoose.Schema({
     type: Date
   }
 });
- 
+
+function validateData(data)
+{
+  const schema = joi.object({
+    from: joi.string().required(),
+    to: joi.string().required(),
+    msg: joi.string().max(50).required()
+
+  });
+
+  const { error } = schema.validate(data);
+  return error;
+}
+
 const Chat = mongoose.model("Chat",chatSchema);
-module.exports = Chat;
+module.exports = {Chat, validateData};
