@@ -25,7 +25,17 @@ app.post("/login", async (req, res) => {
   const user = await User.create({ name, email, password });
   res.status(200).send(user);
 });
-
+app.get("/posts",async (req,res)=>{
+    //Here we are getting all the posts along with their user details, as we are converting the user id to the user information
+  const posts = await Post.find().populate("user");
+  res.status(200).send(posts);
+});
+app.get("/:username/posts", async (req, res) => {
+    const username = req.params.username;
+    //here we are getting all the users along with their posts details, as we are converting the post id to the post information
+    const user = await User.find().populate("posts");
+    res.status(200).send(user);
+});
 app.post("/:username/posts/create", async (req, res) => {
   const { title, caption } = req.body;
   const username = req.params.username;
