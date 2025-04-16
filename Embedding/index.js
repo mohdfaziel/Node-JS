@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/userModel");
+const bcrypt = require("bcrypt");
 const app = express();
 const port = 3000;
 
@@ -21,12 +22,28 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Embedding API!");
 });
 
-app.post("/login",async (req,res) => {
+app.post("/signup",async (req,res) => {
     const {name,email,password} = req.body;
     if(!name || !email || !password) {
         return res.status(400).json({message: "Please provide all fields"});
     }
-    const user = await User.create({name,email,password});
+    const passHash = await bcrypt.hash(password, 10);
+    const user = await User.create({name,email,password: passHash});
+    res.status(200).send(user);
+});
+app.post("/login",async (req,res) => {
+    const {email,password} = req.body;
+    if(!email || !password) {
+        return res.status(400).json({message: "Please provide all fields"});
+    }
+    const user = await User.findOne({email});
+    if(!user) {
+        throw new Error("Login: User not found");
+    }
+    const isMatch = await bcrypt.compare(password,user.password);
+    if(!isMatch) {
+        return res.status(400).json({message: "Invalid credentials"});
+    }
     res.status(200).send(user);
 });
 
@@ -45,6 +62,10 @@ app.post("/:username/posts/create",async (req,res) => {
     console.log(user.posts);
     res.status(200).send(user.posts);
 
+});
+app.use((err,req,res,next) => {
+    console.error(err.stack);
+    res.status(500).send(err.message);
 });
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
