@@ -44,12 +44,13 @@ app.post("/login",async (req,res) => {
     if (!user) {
         return res.status(400).json({ message: "User not found" });
     }
-    const isMatch = await bcrypt.compare(password,user.password);
+    //Check if the password is correct using the validatePassword method in the userModel
+    const isMatch = await user.validatePassword(password);
     if(!isMatch) {
         return res.status(400).json({message: "Invalid credentials"});
     }
-    //Generate JWT token and store user id in it and securing it with a secret key
-    const token = jwt.sign({_id:user._id}, "Faz@123", {expiresIn: "1d"});
+    //Generate JWT token using the getJWT method in the userModel
+    const token = await user.getJWT();
     console.log("Token generated "+ token);
     res.cookie("authToken",token,{expires: new Date(Date.now() + 86400000)});
     res.status(200).send("Login successful");
